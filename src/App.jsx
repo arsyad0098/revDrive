@@ -1,12 +1,15 @@
-import React, { Suspense } from "react"; // WAJIB import Suspense juga
+import React, { Suspense } from "react"; 
 import { Route, Routes } from "react-router-dom";
 
-// 1. Layout tetap pakai import biasa (karena ini kerangka utama)
+// 1. Layout tetap pakai import biasa (karena ini kerangka utama yang harus langsung di-load)
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
 import Loading from "./components/Loading";
 
+// [QUIZ MATERI]: React.lazy() digunakan untuk "Code Splitting". 
+// Artinya, file komponen ini hanya akan didownload oleh browser JIKA user membuka halamannya.
+// Ini bikin initial load website jadi jauh lebih cepat!
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Orders    = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
@@ -20,12 +23,12 @@ import "./assets/tailwind.css";
 export default function App() {
   return (
     /**
-     * 3. WAJIB bungkus Routes dengan <Suspense>.
-     * Tanpa ini, aplikasi bakal crash saat mencoba loading file lazy.
+     * [QUIZ MATERI]: <Suspense> WAJIB ada jika pakai React.lazy().
+     * fallback={<Loading />} fungsinya menampilkan komponen Loading SEMENTARA 
+     * menunggu file lazy berhasil didownload oleh browser.
      */
     <Suspense fallback={<Loading />}>
       <Routes>
-       
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/orders" element={<Orders />} />

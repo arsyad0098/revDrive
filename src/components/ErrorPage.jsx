@@ -8,8 +8,8 @@ export default function ErrorPage({ code, title, description, image }) {
             
             {/* Gambar Error */}
             <div className="w-full max-w-md mb-8 relative">
-                <div className="absolute inset-0 bg-teal-100 blur-[80px] rounded-full opacity-50 -z-10"></div>
-                {/* Pastikan image di-render dengan benar */}
+                {/* Blur background diganti ke merah agar sesuai tema bengkel */}
+                <div className="absolute inset-0 bg-red-100 blur-[80px] rounded-full opacity-50 -z-10"></div>
                 <img 
                     src={image} 
                     alt={`Error ${code}`} 
@@ -18,24 +18,26 @@ export default function ErrorPage({ code, title, description, image }) {
             </div>
 
             {/* Kode Error */}
-            <h1 className="text-7xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400 tracking-tight mb-4">
+            {/* Gradient warna diubah jadi dominan merah */}
+            <h1 className="text-7xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 tracking-tight mb-4">
                 {code}
             </h1>
 
-            {/* Title Error (Bisa di-custom sekarang) */}
+            {/* Title Error */}
             <h2 className="text-2xl font-bold text-gray-800 mb-3">
-                {title || "Oops! Something went wrong."}
+                {title || "Waduh! Ada masalah di sistem."}
             </h2>
             
             {/* Deskripsi Error */}
             <p className="text-gray-500 max-w-md mb-10 text-lg leading-relaxed">
-                {description}
+                {description || "Halaman yang kamu cari sepertinya tidak ditemukan atau sedang dalam perbaikan mekanik kami."}
             </p>
 
             {/* Tombol Back to Home */}
+            {/* Warna tombol disesuaikan dengan merah RevDrive */}
             <button 
                 onClick={() => navigate("/")}
-                className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:-translate-y-1 transition-all duration-200"
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:-translate-y-1 transition-all duration-200"
             >
                 Kembali ke Dashboard
             </button>

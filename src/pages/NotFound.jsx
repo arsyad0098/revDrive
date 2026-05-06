@@ -1,6 +1,6 @@
 import ErrorPage from "../components/ErrorPage";
 // Import gambar dari folder assets (pastikan namanya sesuai dengan yang kamu save)
-import ChefImage from "../assets/404-chef.png"; 
+import ChefImage from "../assets/404-revDrive.png"; 
 
 export default function NotFound() {
     return (
