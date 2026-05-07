@@ -4,43 +4,47 @@ export default function ErrorPage({ code, title, description, image }) {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-[#F9FAFB] p-6 font-sans text-center">
-            
-            {/* Gambar Error */}
-            <div className="w-full max-w-md mb-8 relative">
-                {/* Blur background diganti ke merah agar sesuai tema bengkel */}
-                <div className="absolute inset-0 bg-red-100 blur-[80px] rounded-full opacity-50 -z-10"></div>
+        <div className="flex flex-col items-center justify-center text-center">
+            {/* Gambar Error dengan Proporsi WeHR */}
+            <div className="w-full max-w-sm mb-4 relative">
+                <div className="absolute inset-0 bg-red-100 blur-[50px] rounded-full opacity-30 -z-10"></div>
                 <img 
                     src={image} 
-                    alt={`Error ${code}`} 
-                    className="w-full h-auto drop-shadow-md hover:scale-105 transition-transform duration-500 rounded-2xl"
+                    alt="Error Illustration" 
+                    className="w-full h-auto object-contain drop-shadow-md"
                 />
             </div>
 
-            {/* Kode Error */}
-            {/* Gradient warna diubah jadi dominan merah */}
-            <h1 className="text-7xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 tracking-tight mb-4">
-                {code}
-            </h1>
+            {/* Kode Error (Opsional, jika ingin ditampilkan sebagai background text) */}
+            {code && (
+                <span className="text-[120px] font-black text-[#161E54]/5 absolute top-20 pointer-events-none select-none">
+                    {code}
+                </span>
+            )}
 
-            {/* Title Error */}
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">
-                {title || "Waduh! Ada masalah di sistem."}
+            {/* Typography WeHR: Bold & Dark Blue */}
+            <h2 className="text-3xl font-bold text-[#161E54] mb-2">
+                {title}
             </h2>
             
-            {/* Deskripsi Error */}
-            <p className="text-gray-500 max-w-md mb-10 text-lg leading-relaxed">
-                {description || "Halaman yang kamu cari sepertinya tidak ditemukan atau sedang dalam perbaikan mekanik kami."}
+            {/* Description WeHR: Medium Gray & Balanced Width */}
+            <p className="text-gray-400 max-w-sm mb-8 text-sm font-medium leading-relaxed">
+                {description}
             </p>
 
-            {/* Tombol Back to Home */}
-            {/* Warna tombol disesuaikan dengan merah RevDrive */}
+            {/* Single Button: Merah WeHR */}
             <button 
                 onClick={() => navigate("/")}
-                className="bg-red-600 hover:bg-red-700 text-white px-8 py-3.5 rounded-full font-bold shadow-md hover:-translate-y-1 transition-all duration-200"
+                className="bg-[#FF5151] hover:bg-[#ee4545] text-white px-10 py-3 rounded-lg font-bold shadow-lg shadow-red-100 transition-all active:scale-95"
             >
                 Kembali ke Dashboard
             </button>
+            
+            <div className="mt-10 border-t border-gray-100 pt-6 w-full max-w-[150px]">
+                <p className="text-[10px] text-gray-300 uppercase tracking-widest font-bold">
+                    RevDrive System
+                </p>
+            </div>
         </div>
     );
 }

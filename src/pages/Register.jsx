@@ -1,67 +1,38 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 export default function Register() {
     return (
         <div>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">
-                Create Your Account ✨
-            </h2>
+            <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-[#161E54] mb-1">Create Account ✨</h2>
+                <p className="text-gray-400 text-sm">Daftar sekarang untuk mulai mengelola</p>
+            </div>
 
-            <form>
-                <div className="mb-5">
-                    <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
-                        placeholder="you@example.com"
-                    />
+            <form className="space-y-5">
+                <div>
+                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Email Address</label>
+                    <input type="email" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm" placeholder="you@example.com" required />
+                </div>
+                <div>
+                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Password</label>
+                    <input type="password" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm" placeholder="********" required />
+                </div>
+                <div>
+                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Confirm Password</label>
+                    <input type="password" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm" placeholder="********" required />
                 </div>
 
-                <div className="mb-5">
-                    <label
-                        htmlFor="password"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
-                        placeholder="********"
-                    />
-                </div>
-
-                <div className="mb-6">
-                    <label
-                        htmlFor="confirmPassword"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        Confirm Password
-                    </label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
-                        placeholder="********"
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4
-                        rounded-lg transition duration-300"
-                >
-                    Register
+                <button type="submit" className="w-full bg-[#FF5151] hover:bg-[#ee4545] text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-red-100 mt-2">
+                    Daftar Akun
                 </button>
             </form>
+
+            <div className="mt-8 text-center">
+                <p className="text-gray-500 text-sm">
+                    Sudah punya akun? <Link to="/login" className="text-red-600 font-bold hover:underline">Masuk Sekarang</Link>
+                </p>
+            </div>
         </div>
-    )
+    );
 }

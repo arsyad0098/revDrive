@@ -1,124 +1,90 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import Axios
-import { BsFillExclamationDiamondFill } from "react-icons/bs"; // Import Icon Error
-import { ImSpinner2 } from "react-icons/im"; // Import Icon Loading
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { BsFillExclamationDiamondFill } from "react-icons/bs";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function Login() {
-    /* navigate, state & handleChange */
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [dataForm, setDataForm] = useState({
-        email: "", 
-        password: "",
-    });
+    const [dataForm, setDataForm] = useState({ email: "", password: "" });
 
     const handleChange = (evt) => {
         const { name, value } = evt.target;
-        setDataForm({
-            ...dataForm,
-            [name]: value,
-        });
+        setDataForm({ ...dataForm, [name]: value });
     };
 
-    /* process form */
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setLoading(true);
-        setError(""); // Reset error jadi string kosong (falsey)
+        setError("");
 
-        axios
-            .post("https://dummyjson.com/user/login", {
-                // DummyJSON menggunakan field 'username' bukan 'email'
-                username: dataForm.email, 
-                password: dataForm.password,
-            })
-            .then((response) => {
-                if (response.status !== 200) {
-                    setError(response.data.message);
-                    return;
-                }
-                // Redirect ke dashboard jika login sukses
-                navigate("/");
-            })
-            .catch((err) => {
-                if (err.response) {
-                    setError(err.response.data.message || "An error occurred");
-                } else {
-                    setError(err.message || "An unknown error occurred");
-                }
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        axios.post("https://dummyjson.com/user/login", {
+            username: dataForm.email, 
+            password: dataForm.password,
+        })
+        .then((res) => { if (res.status === 200) navigate("/"); })
+        .catch((err) => { setError(err.response?.data?.message || "Login gagal, cek kembali akun anda"); })
+        .finally(() => { setLoading(false); });
     };
-
-    /* error & loading status */
-    const errorInfo = error ? (
-        <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
-            <BsFillExclamationDiamondFill className="text-red-600 me-2 text-lg" />
-            {error}
-        </div>
-    ) : null;
-
-    const loadingInfo = loading ? (
-        <div className="bg-gray-200 mb-5 p-5 text-sm rounded flex items-center">
-            <ImSpinner2 className="me-2 animate-spin" />
-            Mohon Tunggu...
-        </div>
-    ) : null;
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">
-                Welcome Back 👋
-            </h2>
+            <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-[#161E54] mb-1">Welcome Back 👋</h2>
+                <p className="text-gray-400 text-sm">Masuk untuk mengelola bengkel Anda</p>
+            </div>
 
-            {/* Tampilkan info error & loading */}
-            {errorInfo}
-            {loadingInfo}
+            {error && (
+                <div className="bg-red-50 text-red-500 p-3 rounded-lg text-xs mb-5 flex items-center border border-red-100 font-medium">
+                    <BsFillExclamationDiamondFill className="me-2 text-base" /> {error}
+                </div>
+            )}
 
-            <form onSubmit={handleSubmit}>
-                <div className="mb-5">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Username / Email
-                    </label>
+            <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Username / Email</label>
                     <input
                         type="text"
                         name="email"
                         value={dataForm.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-green-500 focus:border-green-500"
+                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm"
                         placeholder="emilys"
                         required
                     />
                 </div>
-                <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Password
-                    </label>
+                <div>
+                    <div className="flex justify-between mb-2">
+                        <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider">Password</label>
+                        <Link to="/forgot" className="text-xs text-red-600 hover:underline font-semibold">Lupa Password?</Link>
+                    </div>
                     <input
                         type="password"
                         name="password"
                         value={dataForm.password}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:ring-green-500 focus:border-green-500"
+                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm"
                         placeholder="********"
                         required
                     />
                 </div>
+
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full font-semibold py-2 px-4 rounded-lg transition duration-300 text-white ${
-                        loading ? "bg-gray-400" : "bg-green-500 hover:bg-green-600 shadow-md"
-                    }`}
+                    className="w-full bg-[#FF5151] hover:bg-[#ee4545] text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-red-100 flex justify-center items-center gap-2"
                 >
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? <ImSpinner2 className="animate-spin text-lg" /> : "Masuk ke Dashboard"}
                 </button>
             </form>
+
+            <div className="mt-8 text-center">
+                <p className="text-gray-500 text-sm">
+                    Belum punya akun? <Link to="/register" className="text-red-600 font-bold hover:underline">Daftar Sekarang</Link>
+                </p>
+            </div>
         </div>
     );
 }

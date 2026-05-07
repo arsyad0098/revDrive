@@ -19,7 +19,7 @@ export default function Orders() {
 
     return (
         <div className="font-sans">
-            <PageHeader title="Daftar Servis (Work Order)" breadcrumb={["Dashboard", "Service List"]}>
+            <PageHeader title="Service List" breadcrumb={["Dashboard", "Service List"]}>
                 <div className="hidden md:flex items-center bg-gray-50 border border-gray-100 rounded-full px-4 py-2 hover:border-red-300 focus-within:border-red-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-red-50">
                     <FiSearch className="text-gray-400 text-lg" />
                     <input type="text" placeholder="Cari Nama Pelanggan..." className="bg-transparent border-none outline-none ml-2 text-sm w-48 text-gray-700" />

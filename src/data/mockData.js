@@ -1,65 +1,53 @@
 export const customersData = [
-  { id: "CUST-001", name: "Andi Pratama", email: "andi.p@email.com", phone: "081234567001", loyalty: "Gold" },
-  { id: "CUST-002", name: "Budi Santoso", email: "budi.s@email.com", phone: "081234567002", loyalty: "Silver" },
-  { id: "CUST-003", name: "Citra Lestari", email: "citra.l@email.com", phone: "081234567003", loyalty: "Bronze" },
-  { id: "CUST-004", name: "Dewi Anggraini", email: "dewi.a@email.com", phone: "081234567004", loyalty: "Gold" },
-  { id: "CUST-005", name: "Eko Susanto", email: "eko.s@email.com", phone: "081234567005", loyalty: "Bronze" },
-  { id: "CUST-006", name: "Fajar Nugroho", email: "fajar.n@email.com", phone: "081234567006", loyalty: "Silver" },
-  { id: "CUST-007", name: "Gita Savitri", email: "gita.s@email.com", phone: "081234567007", loyalty: "Gold" },
-  { id: "CUST-008", name: "Hadi Saputra", email: "hadi.s@email.com", phone: "081234567008", loyalty: "Bronze" },
-  { id: "CUST-009", name: "Indah Permatasari", email: "indah.p@email.com", phone: "081234567009", loyalty: "Silver" },
-  { id: "CUST-010", name: "Joko Widodo", email: "joko.w@email.com", phone: "081234567010", loyalty: "Gold" },
-  { id: "CUST-011", name: "Kartika Putri", email: "kartika.p@email.com", phone: "081234567011", loyalty: "Bronze" },
-  { id: "CUST-012", name: "Lukman Hakim", email: "lukman.h@email.com", phone: "081234567012", loyalty: "Silver" },
-  { id: "CUST-013", name: "Maya Wulan", email: "maya.w@email.com", phone: "081234567013", loyalty: "Gold" },
-  { id: "CUST-014", name: "Nana Mirdad", email: "nana.m@email.com", phone: "081234567014", loyalty: "Bronze" },
-  { id: "CUST-015", name: "Oscar Lawalata", email: "oscar.l@email.com", phone: "081234567015", loyalty: "Silver" },
-  { id: "CUST-016", name: "Putri Titian", email: "putri.t@email.com", phone: "081234567016", loyalty: "Gold" },
-  { id: "CUST-017", name: "Qori Ramadhan", email: "qori.r@email.com", phone: "081234567017", loyalty: "Bronze" },
-  { id: "CUST-018", name: "Riza Rahadian", email: "riza.r@email.com", phone: "081234567018", loyalty: "Silver" },
-  { id: "CUST-019", name: "Surya Saputra", email: "surya.s@email.com", phone: "081234567019", loyalty: "Gold" },
-  { id: "CUST-020", name: "Tari Lestari", email: "tari.l@email.com", phone: "081234567020", loyalty: "Bronze" },
-  { id: "CUST-021", name: "Umar Syarief", email: "umar.s@email.com", phone: "081234567021", loyalty: "Silver" },
-  { id: "CUST-022", name: "Vina Panduwinata", email: "vina.p@email.com", phone: "081234567022", loyalty: "Gold" },
-  { id: "CUST-023", name: "Wahyu Hidayat", email: "wahyu.h@email.com", phone: "081234567023", loyalty: "Bronze" },
-  { id: "CUST-024", name: "Xena Larasati", email: "xena.l@email.com", phone: "081234567024", loyalty: "Silver" },
-  { id: "CUST-025", name: "Yudi Latif", email: "yudi.l@email.com", phone: "081234567025", loyalty: "Gold" },
-  { id: "CUST-026", name: "Zara Leola", email: "zara.l@email.com", phone: "081234567026", loyalty: "Bronze" },
-  { id: "CUST-027", name: "Arif Dirgantara", email: "arif.d@email.com", phone: "081234567027", loyalty: "Silver" },
-  { id: "CUST-028", name: "Bella Saphira", email: "bella.s@email.com", phone: "081234567028", loyalty: "Gold" },
-  { id: "CUST-029", name: "Candra Wijaya", email: "candra.w@email.com", phone: "081234567029", loyalty: "Bronze" },
-  { id: "CUST-030", name: "Dinda Hauw", email: "dinda.h@email.com", phone: "081234567030", loyalty: "Silver" }
+    { id: "CUST-001", name: "Budi Santoso", email: "budi@gmail.com", phone: "081234567890", loyalty: "Gold" },
+    { id: "CUST-002", name: "Siti Aminah", email: "siti@yahoo.com", phone: "085678901234", loyalty: "Silver" },
+    { id: "CUST-003", name: "Andi Wijaya", email: "andi@outlook.com", phone: "082134567812", loyalty: "Bronze" },
+    { id: "CUST-004", name: "Dewi Lestari", email: "dewi@gmail.com", phone: "081398765432", loyalty: "Gold" },
+    { id: "CUST-005", name: "Rizky Fauzi", email: "rizky@pcr.ac.id", phone: "081212121212", loyalty: "Silver" },
 ];
 
+// Data untuk halaman Orders
 export const ordersData = [
-  { id: "ORD-1001", customerName: "Andi Pratama", status: "Completed", totalPrice: 150000, orderDate: "2023-10-01" },
-  { id: "ORD-1002", customerName: "Budi Santoso", status: "Pending", totalPrice: 75000, orderDate: "2023-10-02" },
-  { id: "ORD-1003", customerName: "Citra Lestari", status: "Cancelled", totalPrice: 320000, orderDate: "2023-10-02" },
-  { id: "ORD-1004", customerName: "Dewi Anggraini", status: "Completed", totalPrice: 450000, orderDate: "2023-10-03" },
-  { id: "ORD-1005", customerName: "Eko Susanto", status: "Pending", totalPrice: 120000, orderDate: "2023-10-04" },
-  { id: "ORD-1006", customerName: "Fajar Nugroho", status: "Completed", totalPrice: 89000, orderDate: "2023-10-04" },
-  { id: "ORD-1007", customerName: "Gita Savitri", status: "Completed", totalPrice: 550000, orderDate: "2023-10-05" },
-  { id: "ORD-1008", customerName: "Hadi Saputra", status: "Cancelled", totalPrice: 210000, orderDate: "2023-10-05" },
-  { id: "ORD-1009", customerName: "Indah Permatasari", status: "Pending", totalPrice: 340000, orderDate: "2023-10-06" },
-  { id: "ORD-1010", customerName: "Joko Widodo", status: "Completed", totalPrice: 1250000, orderDate: "2023-10-06" },
-  { id: "ORD-1011", customerName: "Kartika Putri", status: "Completed", totalPrice: 95000, orderDate: "2023-10-07" },
-  { id: "ORD-1012", customerName: "Lukman Hakim", status: "Pending", totalPrice: 180000, orderDate: "2023-10-07" },
-  { id: "ORD-1013", customerName: "Maya Wulan", status: "Completed", totalPrice: 670000, orderDate: "2023-10-08" },
-  { id: "ORD-1014", customerName: "Nana Mirdad", status: "Cancelled", totalPrice: 110000, orderDate: "2023-10-08" },
-  { id: "ORD-1015", customerName: "Oscar Lawalata", status: "Pending", totalPrice: 290000, orderDate: "2023-10-09" },
-  { id: "ORD-1016", customerName: "Putri Titian", status: "Completed", totalPrice: 430000, orderDate: "2023-10-09" },
-  { id: "ORD-1017", customerName: "Qori Ramadhan", status: "Completed", totalPrice: 155000, orderDate: "2023-10-10" },
-  { id: "ORD-1018", customerName: "Riza Rahadian", status: "Pending", totalPrice: 880000, orderDate: "2023-10-10" },
-  { id: "ORD-1019", customerName: "Surya Saputra", status: "Completed", totalPrice: 230000, orderDate: "2023-10-11" },
-  { id: "ORD-1020", customerName: "Tari Lestari", status: "Cancelled", totalPrice: 90000, orderDate: "2023-10-11" },
-  { id: "ORD-1021", customerName: "Umar Syarief", status: "Completed", totalPrice: 310000, orderDate: "2023-10-12" },
-  { id: "ORD-1022", customerName: "Vina Panduwinata", status: "Pending", totalPrice: 420000, orderDate: "2023-10-12" },
-  { id: "ORD-1023", customerName: "Wahyu Hidayat", status: "Completed", totalPrice: 175000, orderDate: "2023-10-13" },
-  { id: "ORD-1024", customerName: "Xena Larasati", status: "Completed", totalPrice: 560000, orderDate: "2023-10-13" },
-  { id: "ORD-1025", customerName: "Yudi Latif", status: "Cancelled", totalPrice: 140000, orderDate: "2023-10-14" },
-  { id: "ORD-1026", customerName: "Zara Leola", status: "Pending", totalPrice: 275000, orderDate: "2023-10-14" },
-  { id: "ORD-1027", customerName: "Arif Dirgantara", status: "Completed", totalPrice: 390000, orderDate: "2023-10-15" },
-  { id: "ORD-1028", customerName: "Bella Saphira", status: "Completed", totalPrice: 820000, orderDate: "2023-10-15" },
-  { id: "ORD-1029", customerName: "Candra Wijaya", status: "Pending", totalPrice: 195000, orderDate: "2023-10-16" },
-  { id: "ORD-1030", customerName: "Dinda Hauw", status: "Completed", totalPrice: 480000, orderDate: "2023-10-16" }
+    { 
+        id: "WO-2024-001", 
+        customerName: "Budi Santoso", 
+        orderDate: "2024-03-01", 
+        totalPrice: 550000, 
+        status: "Completed" 
+    },
+    { 
+        id: "WO-2024-002", 
+        customerName: "Siti Aminah", 
+        orderDate: "2024-03-02", 
+        totalPrice: 1250000, 
+        status: "Pending" 
+    },
+    { 
+        id: "WO-2024-003", 
+        customerName: "Andi Wijaya", 
+        orderDate: "2024-03-03", 
+        totalPrice: 300000, 
+        status: "Cancelled" 
+    },
+    { 
+        id: "WO-2024-004", 
+        customerName: "Dewi Lestari", 
+        orderDate: "2024-03-04", 
+        totalPrice: 850000, 
+        status: "Completed" 
+    },
+    { 
+        id: "WO-2024-005", 
+        customerName: "Rizky Fauzi", 
+        orderDate: "2024-03-05", 
+        totalPrice: 2100000, 
+        status: "Pending" 
+    },
+    { 
+        id: "WO-2024-006", 
+        customerName: "Budi Santoso", 
+        orderDate: "2024-03-06", 
+        totalPrice: 150000, 
+        status: "Completed" 
+    }
 ];

@@ -1,13 +1,17 @@
 import ErrorPage from "../components/ErrorPage";
-// Import gambar dari folder assets (pastikan namanya sesuai dengan yang kamu save)
-import ChefImage from "../assets/404-revDrive.png"; 
+import NotFoundImage from "../assets/404-revDrive.png"; 
 
 export default function NotFound() {
     return (
-        <ErrorPage 
-            title="Halaman Tidak Ditemukan."
-            description="Maaf, URL yang Anda tuju salah. Silakan kembali ke halaman Dashboard untuk melanjutkan aktivitas."
-            image={ChefImage} 
-        />
+        // Menggunakan min-h-screen agar posisi selalu di tengah viewport
+        <div className="min-h-screen flex items-center justify-center bg-[#F8F9FB] p-6">
+            <div className="w-full max-w-md">
+                <ErrorPage 
+                    title="404 - Halaman Tidak Ditemukan"
+                    description="Oops! Sepertinya Anda tersesat. Halaman yang Anda cari tidak tersedia atau sedang dalam perbaikan mekanik kami."
+                    image={NotFoundImage} 
+                />
+            </div>
+        </div>
     );
 }
