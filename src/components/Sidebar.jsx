@@ -8,7 +8,7 @@ export default function Sidebar() {
         { name: "Service List", path: "/orders", icon: <FiTool /> },
         { name: "Schedule", path: "/calendar", icon: <FiCalendar /> },
         { name: "Customers", path: "/customers", icon: <FiUsers /> },
-        { name: "Spareparts", path: "/analytics", icon: <FiBox /> },
+        { name: "Spareparts", path: "/spareparts", icon: <FiBox /> },
     ];
 
     const otherMenu = [
