@@ -1,85 +1,87 @@
-import { FiMoreHorizontal, FiCheck, FiActivity } from "react-icons/fi";
+import { FiTool, FiSettings, FiCheckCircle, FiTrendingUp, FiArrowUpRight } from "react-icons/fi";
+import AnnouncementItem from "../components/AnnouncementItem";
+import BookingItem from "../components/BookingItem";
+import StatCard from "../components/StatCard"; // SEKARANG TERPAKAI 🔥
 
 export default function Dashboard() {
     return (
-        <div className="font-sans text-gray-900">
-            <h2 className="text-2xl font-bold mb-6">Dashboard Bengkel</h2>
+        <div className="space-y-8 animate-fade-in">
+            <h2 className="text-2xl font-extrabold text-gray-900">Dashboard Bengkel</h2>
 
             <div className="grid grid-cols-12 gap-6">
-                
                 {/* --- KOLOM UTAMA (KIRI & TENGAH) --- */}
                 <div className="col-span-12 lg:col-span-8 space-y-6">
                     
-                    {/* 3 Kartu Statistik Kecil (Warna Pastel) */}
+                    {/* 3 Kartu Statistik Menggunakan Komponen StatCard */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-[#FFEFE7] p-5 rounded-2xl">
-                            <h4 className="font-bold text-lg text-gray-800">24</h4>
-                            <p className="text-sm text-gray-600">Total Servis</p>
-                            <p className="text-xs text-red-500 mt-2 font-medium">4 Perlu penanganan segera</p>
-                        </div>
-                        <div className="bg-[#E8F0FB] p-5 rounded-2xl">
-                            <h4 className="font-bold text-lg text-gray-800">10</h4>
-                            <p className="text-sm text-gray-600">Sedang Dikerjakan</p>
-                            <p className="text-xs text-blue-500 mt-2 font-medium">4 Mekanik aktif</p>
-                        </div>
-                        <div className="bg-[#FDEBF9] p-5 rounded-2xl">
-                            <h4 className="font-bold text-lg text-gray-800">16</h4>
-                            <p className="text-sm text-gray-600">Selesai Hari Ini</p>
-                            <p className="text-xs text-purple-500 mt-2 font-medium">Siap diambil pelanggan</p>
-                        </div>
+                        <StatCard 
+                            title="Total Servis"
+                            value="24"
+                            icon={<FiSettings />}
+                            bgColor="bg-[#FFEFE7]"
+                            iconBg="bg-red-100"
+                            iconColor="text-[#FA424A]"
+                            footer="4 Perlu penanganan"
+                        />
+
+                        <StatCard 
+                            title="Sedang Dikerjakan"
+                            value="10"
+                            icon={<FiTool />}
+                            bgColor="bg-[#E8F0FB]"
+                            iconBg="bg-blue-100"
+                            iconColor="text-blue-600"
+                            footer="4 Mekanik aktif"
+                        />
+
+                        <StatCard 
+                            title="Selesai Hari Ini"
+                            value="16"
+                            icon={<FiCheckCircle />}
+                            bgColor="bg-[#FDEBF9]"
+                            iconBg="bg-purple-100"
+                            iconColor="text-purple-600"
+                            footer="Siap diambil"
+                        />
                     </div>
 
-                    {/* 2 Kartu Data Lebar (Dengan Indikator Pertumbuhan) */}
+                    {/* 2 Kartu Data Lebar */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm flex justify-between items-center">
+                        <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm flex justify-between items-center relative overflow-hidden">
                             <div>
-                                <p className="text-sm font-bold text-gray-500">Total Pelanggan</p>
-                                <h3 className="text-3xl font-bold my-2 text-gray-800">30</h3>
-                                <p className="text-[10px] text-gray-400">Database CRM RevDrive</p>
+                                <p className="text-sm font-bold text-gray-500 mb-1">Total Pelanggan</p>
+                                <h3 className="text-4xl font-extrabold text-gray-900 mb-1">30</h3>
+                                <p className="text-xs font-medium text-gray-400">Database CRM RevDrive</p>
                             </div>
-                            <div className="bg-red-50 text-red-500 text-xs px-2 py-1 rounded-md font-bold">+2% Bulan lalu</div>
+                            <div className="bg-green-50 text-green-600 text-xs px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
+                                <FiArrowUpRight /> +2% Bulan lalu
+                            </div>
                         </div>
-                        <div className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm flex justify-between items-center">
+                        <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm flex justify-between items-center">
                             <div>
-                                <p className="text-sm font-bold text-gray-500">Target Bulanan</p>
-                                <h3 className="text-3xl font-bold my-2 text-gray-800">85%</h3>
-                                <p className="text-[10px] text-gray-400">Dari target 100 unit</p>
+                                <p className="text-sm font-bold text-gray-500 mb-1">Target Bulanan</p>
+                                <h3 className="text-4xl font-extrabold text-gray-900 mb-1">85%</h3>
+                                <p className="text-xs font-medium text-gray-400">Dari target 100 unit</p>
                             </div>
-                            <div className="bg-red-50 text-red-500 text-xs px-2 py-1 rounded-md font-bold">+5% Bulan lalu</div>
+                            <div className="bg-green-50 text-green-600 text-xs px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
+                                <FiArrowUpRight /> +5% Bulan lalu
+                            </div>
                         </div>
                     </div>
 
-                    {/* Bagian Pengumuman (Announcement) */}
-                    <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-                        <div className="p-5 flex justify-between items-center border-b border-gray-50">
-                            <h3 className="font-bold text-gray-800">Pengumuman Bengkel</h3>
-                            <div className="text-xs border rounded-md px-2 py-1 text-gray-400">
+                    {/* Bagian Pengumuman */}
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-50">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="font-bold text-gray-900 text-lg">Pengumuman Bengkel</h3>
+                            <span className="text-xs text-gray-500 font-medium bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-md">
                                 Hari ini, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                            </div>
+                            </span>
                         </div>
-                        <div className="p-5 space-y-4">
-                            <div className="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
-                                <div>
-                                    <p className="text-sm font-medium text-gray-800">Update Stok Oli Shell Helix</p>
-                                    <p className="text-[10px] text-gray-400">5 Menit yang lalu</p>
-                                </div>
-                                <div className="flex gap-4 text-gray-400">
-                                    <FiCheck className="cursor-pointer hover:text-green-500" />
-                                    <FiMoreHorizontal className="cursor-pointer hover:text-red-500" />
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
-                                <div>
-                                    <p className="text-sm font-medium text-gray-800">Jadwal Training Mekanik Baru</p>
-                                    <p className="text-[10px] text-gray-400">Kemarin, 12:30</p>
-                                </div>
-                                <div className="flex gap-4 text-gray-400">
-                                    <FiCheck className="cursor-pointer hover:text-green-500" />
-                                    <FiMoreHorizontal className="cursor-pointer hover:text-red-500" />
-                                </div>
-                            </div>
+                        <div className="space-y-1">
+                            <AnnouncementItem title="Update Stok Oli Shell Helix" time="5 Menit yang lalu" />
+                            <AnnouncementItem title="Jadwal Training Mekanik Baru" time="Kemarin, 12:30" />
                         </div>
-                        <button className="w-full py-3 text-red-500 font-bold text-sm border-t border-gray-50 hover:bg-red-50 transition-colors">
+                        <button className="w-full mt-4 py-3 text-[#FA424A] font-bold text-sm bg-red-50 hover:bg-red-100 rounded-xl transition duration-200">
                             Lihat Semua Pengumuman
                         </button>
                     </div>
@@ -87,53 +89,39 @@ export default function Dashboard() {
 
                 {/* --- KOLOM SAMPING (KANAN) --- */}
                 <div className="col-span-12 lg:col-span-4 space-y-6">
-                    
-                    {/* Kartu Aktivitas Terkini (Gelap) */}
-                    <div className="bg-[#161E54] text-white rounded-2xl overflow-hidden shadow-lg">
-                        <div className="p-5 bg-[#1B2559]">
-                            <h3 className="font-bold">Aktivitas Terkini</h3>
-                        </div>
-                        <div className="p-6">
-                            <p className="text-[10px] opacity-60">10.40 AM, Jumat 10 Sept</p>
-                            <h4 className="font-bold text-lg mt-1 text-white">Servis #RD-1002 Selesai</h4>
-                            <p className="text-xs opacity-80 mt-2 leading-relaxed">
-                                Kendaraan pelanggan <b>Budi Santoso</b> telah melewati tahap final check oleh kepala mekanik. [cite: 83]
+                    <div className="bg-[#161E54] text-white rounded-2xl p-6 shadow-[0_8px_30px_rgba(22,30,84,0.15)] relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 blur-xl"></div>
+                        <h3 className="font-bold mb-6 text-white/90 flex items-center gap-2">
+                            <FiTrendingUp /> Aktivitas Terkini
+                        </h3>
+                        <div className="bg-white/10 p-4 rounded-xl border border-white/5">
+                            <p className="text-[10px] font-medium opacity-70 mb-1">10.40 AM, Jumat 10 Sept</p>
+                            <h4 className="font-bold text-lg text-white">Servis #RD-1002 Selesai</h4>
+                            <p className="text-xs opacity-80 mt-2 leading-relaxed font-light">
+                                Kendaraan pelanggan <b className="font-bold text-white">Budi Santoso</b> telah melewati tahap final check oleh kepala mekanik.
                             </p>
-                            <div className="flex justify-between items-center mt-8">
-                                <p className="text-[10px] opacity-70">Total 12 aktivitas hari ini</p>
-                                <button className="bg-red-500 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-red-600 transition-all">
-                                    Lihat Detail
-                                </button>
-                            </div>
+                        </div>
+                        <div className="flex justify-between items-center mt-6">
+                            <p className="text-[10px] font-medium opacity-60">Total 12 aktivitas hari ini</p>
+                            <button className="bg-[#FA424A] hover:bg-red-500 shadow-lg shadow-red-500/30 px-5 py-2.5 rounded-lg text-xs font-bold transition">
+                                Detail
+                            </button>
                         </div>
                     </div>
 
-                    {/* Jadwal Booking Mendatang */}
-                    <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-                        <div className="p-5 flex justify-between items-center border-b border-gray-50">
-                            <h3 className="font-bold text-gray-800">Jadwal Booking</h3>
-                            <p className="text-xs text-red-500 font-bold cursor-pointer hover:underline">Lihat Semua</p>
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-50">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="font-bold text-gray-900 text-lg">Jadwal Booking</h3>
+                            <button className="text-[#FA424A] text-xs font-bold hover:underline">Lihat Semua</button>
                         </div>
-                        <div className="p-5 space-y-4">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Prioritas Utama</p>
-                            <div className="bg-gray-50 p-3 rounded-xl border-l-4 border-orange-400 flex items-center justify-between">
-                                <div>
-                                    <p className="text-sm font-medium text-gray-800">Servis Berkala Pajero</p>
-                                    <p className="text-[10px] text-gray-400">Hari ini - 11.30 WIB</p>
-                                </div>
-                                <FiActivity className="text-gray-300" />
-                            </div>
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mt-4">Lainnya</p>
-                            <div className="bg-gray-50 p-3 rounded-xl border-l-4 border-blue-400">
-                                <p className="text-sm font-medium text-gray-800">Ganti Oli Fortuner</p>
-                                <p className="text-[10px] text-gray-400">Besok - 09.00 WIB</p>
-                            </div>
-                        </div>
-                        <button className="w-full py-3 text-red-500 font-bold text-sm border-t border-gray-50 hover:bg-red-50 transition-colors">
-                            Buat Jadwal Baru
+                        <p className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mb-3">Prioritas Utama</p>
+                        <BookingItem title="Servis Berkala Pajero" time="Hari ini - 11.30 WIB" type="priority" />
+                        <p className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest mt-6 mb-3">Lainnya</p>
+                        <BookingItem title="Ganti Oli Fortuner" time="Besok - 09.00 WIB" />
+                        <button className="w-full mt-6 py-3 border-2 border-dashed border-gray-200 text-gray-500 font-bold text-sm rounded-xl hover:bg-gray-50 hover:text-[#FA424A] hover:border-red-200 transition duration-200">
+                            + Buat Jadwal Baru
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
