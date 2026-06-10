@@ -7,6 +7,19 @@ import Button from "../components/Button";
 import StatCard from "../components/StatCard";
 import { customersData } from "../data/mockData";
 
+// --- IMPORT DIALOG SHADCN UI (Menggunakan Alias @) ---
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+// -----------------------------------------------------
+
 export default function Customers() {
     const [customers] = useState(customersData);
     const goldMembers = customers.filter(
@@ -26,12 +39,58 @@ export default function Customers() {
                     />
                 </div>
 
-                <Button
-                    type="primary"
-                    className="flex items-center gap-2 rounded-full px-6"
-                >
-                    <FiUserPlus className="text-lg" /> Tambah Pelanggan
-                </Button>
+                {/* --- DIALOG COMPONENT UNTUK TAMBAH PELANGGAN --- */}
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <button className="flex items-center gap-2 bg-[#FA424A] hover:bg-red-600 text-white rounded-full px-6 py-2 text-sm font-semibold shadow-sm transition">
+                            <FiUserPlus className="text-lg" /> Tambah Pelanggan
+                        </button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md bg-white p-6 rounded-2xl shadow-xl">
+                        <DialogHeader>
+                            <DialogTitle className="text-lg font-extrabold text-gray-900">Tambah Pelanggan Baru</DialogTitle>
+                            <DialogDescription className="text-sm text-gray-500">
+                                Masukkan data profil pelanggan baru untuk database CRM RevDrive.
+                            </DialogDescription>
+                        </DialogHeader>
+                        
+                        {/* Form Input Pelanggan */}
+                        <div className="space-y-4 my-4">
+                            <div className="flex flex-col gap-1.5">
+                                <label className="text-sm font-bold text-gray-700">Nama Lengkap</label>
+                                <input type="text" className="border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#FA424A]" placeholder="Masukkan nama lengkap..." />
+                            </div>
+                            <div className="flex flex-col gap-1.5">
+                                <label className="text-sm font-bold text-gray-700">Alamat Email</label>
+                                <input type="email" className="border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#FA424A]" placeholder="contoh@email.com" />
+                            </div>
+                            <div className="flex flex-col gap-1.5">
+                                <label className="text-sm font-bold text-gray-700">No. HP / WhatsApp</label>
+                                <input type="text" className="border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-none focus:border-[#FA424A]" placeholder="Contoh: 081234567890" />
+                            </div>
+                            <div className="flex flex-col gap-1.5">
+                                <label className="text-sm font-bold text-gray-700">Tipe Keanggotaan (Loyalty)</label>
+                                <select className="border border-gray-200 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:border-[#FA424A]">
+                                    <option value="Bronze">Bronze</option>
+                                    <option value="Silver">Silver</option>
+                                    <option value="Gold">Gold</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <DialogFooter className="flex justify-end gap-2 mt-4">
+                            <DialogClose asChild>
+                                <button type="button" className="px-4 py-2 text-sm font-bold text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                                    Batal
+                                </button>
+                            </DialogClose>
+                            <button type="button" className="px-4 py-2 text-sm font-bold bg-[#FA424A] text-white rounded-lg hover:bg-red-600 transition">
+                                Simpan Pelanggan
+                            </button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+                {/* ------------------------------------------------ */}
             </PageHeader>
 
             {/* --- STAT CARDS DENGAN DESAIN FULL COLOR (SEPERTI DASHBOARD) 🔥 --- */}
