@@ -1,12 +1,50 @@
+import { useState, useEffect } from "react"; // 1. Tambahkan import hooks ini
 import { FiTool, FiSettings, FiCheckCircle, FiTrendingUp, FiArrowUpRight } from "react-icons/fi";
 import AnnouncementItem from "../components/AnnouncementItem";
 import BookingItem from "../components/BookingItem";
-import StatCard from "../components/StatCard"; // SEKARANG TERPAKAI 🔥
+import StatCard from "../components/StatCard";
 
 export default function Dashboard() {
+    // 2. State untuk menyimpan waktu saat ini
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    // 3. Implementasi useEffect untuk Jam Real-Time
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000); // Berjalan setiap 1 detik
+
+        // Cleanup function untuk mencegah memory leak saat pindah halaman
+        return () => clearInterval(timer);
+    }, []);
+
+    // Format tampilan waktu dan tanggal
+    const timeString = currentTime.toLocaleTimeString('id-ID', { 
+        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+    });
+    const dateString = currentTime.toLocaleDateString('id-ID', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    });
+
     return (
         <div className="space-y-8 animate-fade-in">
-            <h2 className="text-2xl font-extrabold text-gray-900">Dashboard Bengkel</h2>
+            {/* Header Dashboard yang sudah dimodifikasi ditambah Widget Jam */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 className="text-2xl font-extrabold text-gray-900">Dashboard Bengkel</h2>
+                    <p className="text-sm text-gray-500 mt-1">Pantau aktivitas operasional RevDrive secara real-time.</p>
+                </div>
+                
+                {/* Widget Jam Digital Hasil useEffect */}
+                <div className="bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-100 text-right hidden md:block">
+                    <p className="text-xl font-bold text-[#FA424A] tracking-wider font-mono">
+                        {timeString}
+                    </p>
+                    <p className="text-[10px] font-extrabold text-gray-400 mt-1 uppercase tracking-widest">
+                        {dateString}
+                    </p>
+                </div>
+            </div>
 
             <div className="grid grid-cols-12 gap-6">
                 {/* --- KOLOM UTAMA (KIRI & TENGAH) --- */}
@@ -74,7 +112,8 @@ export default function Dashboard() {
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="font-bold text-gray-900 text-lg">Pengumuman Bengkel</h3>
                             <span className="text-xs text-gray-500 font-medium bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-md">
-                                Hari ini, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                {/* Disesuaikan agar pakai format hari ini otomatis */}
+                                {dateString}
                             </span>
                         </div>
                         <div className="space-y-1">
@@ -95,7 +134,7 @@ export default function Dashboard() {
                             <FiTrendingUp /> Aktivitas Terkini
                         </h3>
                         <div className="bg-white/10 p-4 rounded-xl border border-white/5">
-                            <p className="text-[10px] font-medium opacity-70 mb-1">10.40 AM, Jumat 10 Sept</p>
+                            <p className="text-[10px] font-medium opacity-70 mb-1">{timeString}</p> {/* Waktu disesuaikan real-time */}
                             <h4 className="font-bold text-lg text-white">Servis #RD-1002 Selesai</h4>
                             <p className="text-xs opacity-80 mt-2 leading-relaxed font-light">
                                 Kendaraan pelanggan <b className="font-bold text-white">Budi Santoso</b> telah melewati tahap final check oleh kepala mekanik.

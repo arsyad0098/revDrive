@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   LayoutDashboard,
@@ -23,6 +23,7 @@ import {
 export function GlobalSearch() {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+  const inputRef = useRef(null)
 
   // Listener tombol Ctrl + K / Cmd + K
   useEffect(() => {
@@ -35,6 +36,12 @@ export function GlobalSearch() {
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
+
+  useEffect(() => {
+    if (open && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [open])
 
   const goTo = (path) => {
     navigate(path)
@@ -56,7 +63,7 @@ export function GlobalSearch() {
 
       {/* Dialog Pop-up Isinya Sesuai Struktur Dokumen Resmi Shadcn */}
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput ref={inputRef} placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           
