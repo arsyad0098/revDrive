@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { supabase } from "../lib/supabaseClient";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
 
@@ -20,13 +20,22 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        axios.post("https://dummyjson.com/user/login", {
-            username: dataForm.email, 
-            password: dataForm.password,
-        })
-        .then((res) => { if (res.status === 200) navigate("/"); })
-        .catch((err) => { setError(err.response?.data?.message || "Login gagal, cek kembali akun anda"); })
-        .finally(() => { setLoading(false); });
+        // Cek login langsung ke tabel users Supabase
+        const { data, error } = await supabase
+            .from("users")
+            .select("*")
+            .eq("email", dataForm.email)
+            .eq("password", dataForm.password)
+            .single();
+
+        if (error || !data) {
+            setError("Login gagal, Email atau Password salah!");
+        } else {
+            // Bisa simpan data user ke localStorage jika butuh
+            localStorage.setItem("user", JSON.stringify(data));
+            navigate("/");
+        }
+        setLoading(false);
     };
 
     return (
@@ -44,46 +53,24 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Username / Email</label>
-                    <input
-                        type="text"
-                        name="email"
-                        value={dataForm.email}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm"
-                        placeholder="emilys"
-                        required
-                    />
+                    <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider mb-2">Email</label>
+                    <input type="email" name="email" value={dataForm.email} onChange={handleChange} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 outline-none text-sm" placeholder="admin@revdrive.com" required />
                 </div>
                 <div>
                     <div className="flex justify-between mb-2">
                         <label className="block text-xs font-bold text-[#161E54] uppercase tracking-wider">Password</label>
                         <Link to="/forgot" className="text-xs text-red-600 hover:underline font-semibold">Lupa Password?</Link>
                     </div>
-                    <input
-                        type="password"
-                        name="password"
-                        value={dataForm.password}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 transition-all outline-none text-sm"
-                        placeholder="********"
-                        required
-                    />
+                    <input type="password" name="password" value={dataForm.password} onChange={handleChange} className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-red-500 outline-none text-sm" placeholder="********" required />
                 </div>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-[#FF5151] hover:bg-[#ee4545] text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-red-100 flex justify-center items-center gap-2"
-                >
+                <button type="submit" disabled={loading} className="w-full bg-[#FF5151] hover:bg-[#ee4545] text-white font-bold py-3 rounded-lg shadow-lg flex justify-center items-center gap-2">
                     {loading ? <ImSpinner2 className="animate-spin text-lg" /> : "Masuk ke Dashboard"}
                 </button>
             </form>
 
             <div className="mt-8 text-center">
-                <p className="text-gray-500 text-sm">
-                    Belum punya akun? <Link to="/register" className="text-red-600 font-bold hover:underline">Daftar Sekarang</Link>
-                </p>
+                <p className="text-gray-500 text-sm">Belum punya akun? <Link to="/register" className="text-red-600 font-bold hover:underline">Daftar Sekarang</Link></p>
             </div>
         </div>
     );
