@@ -8,13 +8,17 @@ import Loading from "./components/Loading";
 
 import "./assets/tailwind.css";
 
-// [REVISION]: Tambahkan lazy import untuk halaman Spareparts & Detail
+// Menambahkan lazy import untuk Landing Page
+const LandingPage     = React.lazy(() => import("./pages/LandingPage"));
+
+// Lazy import untuk halaman Dashboard & Fitur CRM
 const Dashboard       = React.lazy(() => import("./pages/Dashboard"));
 const Orders          = React.lazy(() => import("./pages/Orders"));
 const Customers       = React.lazy(() => import("./pages/Customers"));
 const Spareparts      = React.lazy(() => import("./pages/Spareparts"));
 const SparepartDetail = React.lazy(() => import("./pages/SparepartDetail"));
 
+// Lazy import untuk halaman Auth & Error
 const Login           = React.lazy(() => import("./pages/Login"));
 const Register        = React.lazy(() => import("./pages/Register"));
 const Forgot          = React.lazy(() => import("./pages/Forgot"));
@@ -25,7 +29,8 @@ function RequireAuth({ children }) {
 }
 
 function RedirectIfAuth({ children }) {
-  return localStorage.getItem("user") ? <Navigate to="/" replace /> : children;
+  // Jika sudah login, arahkan ke /dashboard, bukan ke landing page (/)
+  return localStorage.getItem("user") ? <Navigate to="/dashboard" replace /> : children;
 }
 
 export default function App() {
@@ -35,22 +40,26 @@ export default function App() {
      */
     <Suspense fallback={<Loading />}>
       <Routes>
+        {/* Route Publik Utama: Landing Page tanpa Layout Admin/Auth */}
+        <Route path="/" element={<LandingPage />} />
+
         {/* Route yang menggunakan Sidebar & Header (MainLayout) */}
         <Route element={<RequireAuth><MainLayout /></RequireAuth>}>
-          <Route index element={<Dashboard />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="customers" element={<Customers />} />
+          {/* Path dashboard diubah dari index menjadi /dashboard */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/customers" element={<Customers />} />
 
           {/* Implementasi Dynamic Route untuk Project CRM */}
-          <Route path="spareparts" element={<Spareparts />} />
-          <Route path="spareparts/:id" element={<SparepartDetail />} />
+          <Route path="/spareparts" element={<Spareparts />} />
+          <Route path="/spareparts/:id" element={<SparepartDetail />} />
         </Route>
 
         {/* Route untuk halaman Auth */}
         <Route element={<AuthLayout />}>
-          <Route path="login" element={<RedirectIfAuth><Login /></RedirectIfAuth>} />
-          <Route path="register" element={<RedirectIfAuth><Register /></RedirectIfAuth>} />
-          <Route path="forgot" element={<RedirectIfAuth><Forgot /></RedirectIfAuth>} />
+          <Route path="/login" element={<RedirectIfAuth><Login /></RedirectIfAuth>} />
+          <Route path="/register" element={<RedirectIfAuth><Register /></RedirectIfAuth>} />
+          <Route path="/forgot" element={<RedirectIfAuth><Forgot /></RedirectIfAuth>} />
         </Route>
 
         {/* Catch-all route untuk halaman tidak ditemukan */}
