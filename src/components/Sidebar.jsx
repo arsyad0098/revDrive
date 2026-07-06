@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
-import { FiTool, FiUsers, FiBox, FiFileText, FiCalendar, FiSettings, FiHeadphones } from "react-icons/fi";
+import { FiTool, FiUsers, FiBox, FiSettings, FiHeadphones, FiCalendar } from "react-icons/fi";
 
 export default function Sidebar() {
+    // Mengubah path Dashboard dari "/" menjadi "/dashboard" agar tidak mengarah ke landing page
     const mainMenu = [
-        { name: "Dashboard", path: "/", icon: <MdSpaceDashboard /> },
+        { name: "Dashboard", path: "/dashboard", icon: <MdSpaceDashboard /> },
         { name: "Service List", path: "/orders", icon: <FiTool /> },
         { name: "Schedule", path: "/calendar", icon: <FiCalendar /> },
         { name: "Customers", path: "/customers", icon: <FiUsers /> },
@@ -31,7 +32,8 @@ export default function Sidebar() {
             <nav className="flex-1">
                 <p className="px-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Main Menu</p>
                 {mainMenu.map((item, idx) => (
-                    <NavLink key={idx} to={item.path} end={item.path === "/"} className={menuClass}>
+                    // end={true} memastikan menu aktif/menyala merah dengan tepat sesuai path-nya
+                    <NavLink key={idx} to={item.path} end className={menuClass}>
                         <span className="text-xl">{item.icon}</span>
                         <span className="text-sm">{item.name}</span>
                     </NavLink>
