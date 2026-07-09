@@ -17,18 +17,20 @@ const loadOrders = () => {
   }
 };
 
-const STATUS_TABS = ["All", "Menunggu", "Diperbaiki", "Siap diambil"];
+const STATUS_TABS = ["All", "Menunggu", "Diperiksa", "Dikerjakan", "Siap diambil"];
 
 const tabActiveClass = {
   All: "bg-gray-900 text-white border-gray-900",
   Menunggu: "bg-orange-100 text-orange-600 border-orange-500",
-  Diperbaiki: "bg-blue-100 text-blue-700 border-blue-500",
+  Diperiksa: "bg-blue-100 text-blue-700 border-blue-500",
+  Dikerjakan: "bg-purple-100 text-purple-700 border-purple-500",
   "Siap diambil": "bg-green-100 text-green-700 border-green-500",
 };
 
 const badgeClass = {
   Menunggu: "bg-orange-100 text-orange-600",
-  Diperbaiki: "bg-blue-100 text-blue-700",
+  Diperiksa: "bg-blue-100 text-blue-700",
+  Dikerjakan: "bg-purple-100 text-purple-700",
   "Siap diambil": "bg-green-100 text-green-700",
 };
 
@@ -67,7 +69,46 @@ export default function ServiceList() {
 
   const handleChangeEdit = (e) => {
     const { name, value } = e.target;
-    setEditingOrder((prev) => ({ ...prev, [name]: value }));
+    setEditingOrder((prev) => {
+      const updated = { ...prev, [name]: value };
+      
+      // Auto-update tracking steps ketika status berubah
+      if (name === "status") {
+        updated.trackingSteps = generateTrackingSteps(value);
+      }
+      
+      return updated;
+    });
+  };
+
+  // Generate tracking steps berdasarkan status
+  const generateTrackingSteps = (status) => {
+    const baseSteps = [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "pending" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "pending" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "pending" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "pending" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "pending" }
+    ];
+
+    if (status === "Menunggu") {
+      baseSteps[0].status = "active";
+    } else if (status === "Diperiksa") {
+      baseSteps[0].status = "completed";
+      baseSteps[1].status = "active";
+    } else if (status === "Dikerjakan") {
+      baseSteps[0].status = "completed";
+      baseSteps[1].status = "completed";
+      baseSteps[2].status = "active";
+    } else if (status === "Siap diambil") {
+      baseSteps[0].status = "completed";
+      baseSteps[1].status = "completed";
+      baseSteps[2].status = "completed";
+      baseSteps[3].status = "completed";
+      baseSteps[4].status = "completed";
+    }
+
+    return baseSteps;
   };
 
   const handleSave = (e) => {
@@ -377,7 +418,8 @@ export default function ServiceList() {
                   className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm focus:border-red-400 focus:outline-none focus:ring-2 focus:ring-red-100"
                 >
                   <option value="Menunggu">Menunggu</option>
-                  <option value="Diperbaiki">Diperbaiki</option>
+                  <option value="Diperiksa">Diperiksa</option>
+                  <option value="Dikerjakan">Dikerjakan</option>
                   <option value="Siap diambil">Siap diambil</option>
                 </select>
               </div>

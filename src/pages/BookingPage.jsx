@@ -26,6 +26,16 @@ export default function BookingPage() {
     const userName = loggedUser.name || loggedUser.email || "Pelanggan";
     const userEmail = loggedUser.email || "";
     const userPhone = loggedUser.phone || loggedUser.phone_number || "";
+    
+    // Default tracking steps saat booking dibuat
+    const defaultTrackingSteps = [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "active" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "pending" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "pending" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "pending" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "pending" }
+    ];
+    
     const newOrder = {
       wo: `#WO-${Date.now()}`,
       customerName: userName,
@@ -42,6 +52,7 @@ export default function BookingPage() {
       jenisServis: formData.jenisServis,
       keluhan: formData.keluhan,
       jam: formData.jam,
+      trackingSteps: defaultTrackingSteps,
     };
 
     localStorage.setItem("orders", JSON.stringify([...existingOrders, newOrder]));
@@ -177,10 +188,25 @@ export default function BookingPage() {
                     onChange={(e) => setFormData({...formData, jam: e.target.value})}
                   >
                     <option value="">Pilih Jam</option>
+                    <option value="08:00">08:00 WIB</option>
+                    <option value="08:30">08:30 WIB</option>
                     <option value="09:00">09:00 WIB</option>
+                    <option value="09:30">09:30 WIB</option>
+                    <option value="10:00">10:00 WIB</option>
+                    <option value="10:30">10:30 WIB</option>
                     <option value="11:00">11:00 WIB</option>
+                    <option value="11:30">11:30 WIB</option>
+                    <option value="12:00">12:00 WIB</option>
+                    <option value="12:30">12:30 WIB</option>
+                    <option value="13:00">13:00 WIB</option>
+                    <option value="13:30">13:30 WIB</option>
                     <option value="14:00">14:00 WIB</option>
+                    <option value="14:30">14:30 WIB</option>
+                    <option value="15:00">15:00 WIB</option>
+                    <option value="15:30">15:30 WIB</option>
                     <option value="16:00">16:00 WIB</option>
+                    <option value="16:30">16:30 WIB</option>
+                    <option value="17:00">17:00 WIB</option>
                   </select>
                 </div>
               </div>

@@ -134,3 +134,83 @@ export const sparepartsData = [
     image: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=800&q=80"
   }
 ];
+
+// Data untuk halaman Tracking - Daftar Booking dengan Status Servis berdasarkan User
+export const bookingsData = [
+  {
+    id: "WO-2024-001",
+    userEmail: "budi@gmail.com",
+    customerName: "Budi Santoso",
+    vehicle: "Toyota Avanza (2022)",
+    licensePlate: "BM 1234 PCR",
+    status: "Diperiksa",
+    complaint: "Ganti Oli & Rem Bunyi",
+    bookingDate: "2024-03-15",
+    bookingTime: "10:00",
+    estimatedFinish: "2024-03-15 14:30",
+    trackingSteps: [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "completed" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "active" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "pending" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "pending" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "pending" }
+    ]
+  },
+  {
+    id: "WO-2024-002",
+    userEmail: "budi@gmail.com",
+    customerName: "Budi Santoso",
+    vehicle: "Honda Civic (2020)",
+    licensePlate: "BM 5678 ABC",
+    status: "Selesai",
+    complaint: "Service Berkala & Ganti Filter",
+    bookingDate: "2024-03-10",
+    bookingTime: "08:30",
+    estimatedFinish: "2024-03-10 12:00",
+    trackingSteps: [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "completed" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "completed" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "completed" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "completed" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "completed" }
+    ]
+  },
+  {
+    id: "WO-2024-003",
+    userEmail: "siti@yahoo.com",
+    customerName: "Siti Aminah",
+    vehicle: "Daihatsu Xenia (2019)",
+    licensePlate: "D 9876 XYZ",
+    status: "Menunggu",
+    complaint: "Perbaikan AC Mobil",
+    bookingDate: "2024-03-20",
+    bookingTime: "14:00",
+    estimatedFinish: "2024-03-20 16:30",
+    trackingSteps: [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "active" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "pending" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "pending" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "pending" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "pending" }
+    ]
+  },
+  {
+    id: "WO-2024-004",
+    userEmail: "andi@outlook.com",
+    customerName: "Andi Wijaya",
+    vehicle: "Suzuki Ertiga (2021)",
+    licensePlate: "AG 1111 DEF",
+    status: "Dikerjakan",
+    complaint: "Ganti Kampas Rem",
+    bookingDate: "2024-03-18",
+    bookingTime: "11:00",
+    estimatedFinish: "2024-03-18 15:00",
+    trackingSteps: [
+      { id: 1, title: "Antri", desc: "Menunggu giliran pengerjaan", status: "completed" },
+      { id: 2, title: "Diperiksa", desc: "Inspeksi oleh Service Advisor", status: "completed" },
+      { id: 3, title: "Dikerjakan", desc: "Mekanik sedang melakukan perbaikan", status: "active" },
+      { id: 4, title: "Quality Check", desc: "Pengecekan standar kualitas akhir", status: "pending" },
+      { id: 5, title: "Selesai", desc: "Kendaraan siap diambil & bayar", status: "pending" }
+    ]
+  }
+];
