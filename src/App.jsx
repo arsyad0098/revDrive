@@ -35,6 +35,12 @@ function RequireAuth({ children }) {
   return localStorage.getItem("user") ? children : <Navigate to="/login" replace />;
 }
 
+function RequireAdmin({ children }) {
+  const user = localStorage.getItem("user");
+  const parsedUser = user ? JSON.parse(user) : null;
+  return parsedUser && parsedUser.role === "admin" ? children : <Navigate to="/login" replace />;
+}
+
 function RedirectIfAuth({ children }) {
   return localStorage.getItem("user") ? <Navigate to="/dashboard" replace /> : children;
 }
@@ -45,15 +51,15 @@ export default function App() {
       <Routes>
         {/* Route Publik Utama */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/booking" element={<BookingPage />} />
-        <Route path="/tracking" element={<TrackingPage />} /> 
-        <Route path="/history" element={<HistoryPage />} /> 
-        <Route path="/loyalty" element={<LoyaltyPage />} />
+        <Route path="/booking" element={<RequireAuth><BookingPage /></RequireAuth>} />
+        <Route path="/tracking" element={<RequireAuth><TrackingPage /></RequireAuth>} />
+        <Route path="/history" element={<RequireAuth><HistoryPage /></RequireAuth>} />
+        <Route path="/loyalty" element={<RequireAuth><LoyaltyPage /></RequireAuth>} />
         {/* Daftarkan rute baru untuk transparansi estimasi biaya di bawah ini */}
-        <Route path="/estimates" element={<EstimatesPage />} />
+        <Route path="/estimates" element={<RequireAuth><EstimatesPage /></RequireAuth>} />
 
         {/* Route yang menggunakan Sidebar & Header (MainLayout Admin) */}
-        <Route element={<RequireAuth><MainLayout /></RequireAuth>}>
+        <Route element={<RequireAdmin><MainLayout /></RequireAdmin>}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />

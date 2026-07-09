@@ -20,12 +20,32 @@ export default function BookingPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulasi pengiriman data
-    console.log("Data Booking:", formData);
+
+    const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+    const loggedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    const userName = loggedUser.name || loggedUser.email || "Pelanggan";
+    const userEmail = loggedUser.email || "";
+    const userPhone = loggedUser.phone || loggedUser.phone_number || "";
+    const newOrder = {
+      wo: `#WO-${Date.now()}`,
+      customerName: userName,
+      customerEmail: userEmail,
+      customerPhone: userPhone,
+      vehicle: `${formData.merek} ${formData.model}`.trim(),
+      date: formData.tanggal,
+      cost: "Rp 0",
+      status: "Menunggu",
+      noPolisi: formData.noPolisi,
+      tahun: formData.tahun,
+      merek: formData.merek,
+      model: formData.model,
+      jenisServis: formData.jenisServis,
+      keluhan: formData.keluhan,
+      jam: formData.jam,
+    };
+
+    localStorage.setItem("orders", JSON.stringify([...existingOrders, newOrder]));
     setIsSubmitted(true);
-    
-    // Kirim notifikasi WhatsApp simulasi (opsional)
-    // window.open(`https://wa.me/62812345678?text=Halo RevDrive, saya ingin booking servis untuk mobil ${formData.noPolisi}`);
   };
 
   if (isSubmitted) {
@@ -166,7 +186,7 @@ export default function BookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <label className="flex text-sm font-semibold text-gray-700 mb-2 items-center gap-2">
                   <FiFileText size={14} /> Keluhan / Kebutuhan Servis
                 </label>
                 <textarea 

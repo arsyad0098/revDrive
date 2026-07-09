@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import dashboardImg from '../assets/landingpage2.jpg'; 
 
 export default function LandingPage() {
+    const navigate = useNavigate();
     const [openFaq, setOpenFaq] = useState(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        setIsLoggedIn(Boolean(localStorage.getItem('user')));
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        setIsLoggedIn(false);
+        navigate('/');
+    };
+
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
 
     const toggleFaq = (index) => {
         setOpenFaq(openFaq === index ? null : index);
@@ -124,14 +143,18 @@ export default function LandingPage() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                    <a href="#tentang" className="hover:text-slate-900 transition-colors">Tentang Kami</a>
-                    <a href="#fitur" className="hover:text-slate-900 transition-colors">Layanan Digital</a>
-                    <a href="#cara-kerja" className="hover:text-slate-900 transition-colors">Cara Kerja</a>
-                    <a href="#faq" className="hover:text-slate-900 transition-colors">FAQ</a>
+                    <button type="button" onClick={() => scrollToSection('tentang')} className="hover:text-slate-900 transition-colors">Tentang Kami</button>
+                    <button type="button" onClick={() => scrollToSection('fitur')} className="hover:text-slate-900 transition-colors">Layanan Digital</button>
+                    <button type="button" onClick={() => scrollToSection('cara-kerja')} className="hover:text-slate-900 transition-colors">Cara Kerja</button>
+                    <button type="button" onClick={() => scrollToSection('faq')} className="hover:text-slate-900 transition-colors">FAQ</button>
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <Link to="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Masuk Member</Link>
+                    {isLoggedIn ? (
+                        <button onClick={handleLogout} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Logout</button>
+                    ) : (
+                        <Link to="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Masuk Member</Link>
+                    )}
                     <Link to="/booking" className="bg-[#DE2C2C] text-white text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-[#c22424] transition-all">Booking Servis</Link>
                 </div>
 
@@ -147,12 +170,16 @@ export default function LandingPage() {
             {/* Mobile Dropdown */}
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-white border-b border-slate-100 px-6 py-4 flex flex-col gap-4 text-center font-medium shadow-lg absolute left-0 right-0 top-20 w-full z-50">
-                    <a href="#tentang" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">Tentang Kami</a>
-                    <a href="#fitur" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">Layanan Digital</a>
-                    <a href="#cara-kerja" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">Cara Kerja</a>
-                    <a href="#faq" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">FAQ</a>
+                    <button type="button" onClick={() => { setIsMobileMenuOpen(false); scrollToSection('tentang'); }} className="text-slate-600 py-2 hover:text-slate-900">Tentang Kami</button>
+                    <button type="button" onClick={() => { setIsMobileMenuOpen(false); scrollToSection('fitur'); }} className="text-slate-600 py-2 hover:text-slate-900">Layanan Digital</button>
+                    <button type="button" onClick={() => { setIsMobileMenuOpen(false); scrollToSection('cara-kerja'); }} className="text-slate-600 py-2 hover:text-slate-900">Cara Kerja</button>
+                    <button type="button" onClick={() => { setIsMobileMenuOpen(false); scrollToSection('faq'); }} className="text-slate-600 py-2 hover:text-slate-900">FAQ</button>
                     <hr className="border-slate-100" />
-                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">Masuk Member</Link>
+                    {isLoggedIn ? (
+                        <button onClick={() => { setIsMobileMenuOpen(false); handleLogout(); }} className="text-slate-600 py-2 hover:text-slate-900 w-full text-left">Logout</button>
+                    ) : (
+                        <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-600 py-2 hover:text-slate-900">Login</Link>
+                    )}
                     <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)} className="bg-[#DE2C2C] text-white py-3 rounded-xl text-center font-semibold block">Booking Servis</Link>
                 </div>
             )}
@@ -352,9 +379,9 @@ export default function LandingPage() {
                 </div>
                 
                 <div className="flex flex-wrap justify-center gap-6 text-slate-400">
-                    <a href="#tentang" className="hover:text-white transition-colors">Tentang Kami</a>
-                    <a href="#fitur" className="hover:text-white transition-colors">Layanan</a>
-                    <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+                    <button type="button" onClick={() => scrollToSection('tentang')} className="hover:text-white transition-colors">Tentang Kami</button>
+                    <button type="button" onClick={() => scrollToSection('fitur')} className="hover:text-white transition-colors">Layanan</button>
+                    <button type="button" onClick={() => scrollToSection('faq')} className="hover:text-white transition-colors">FAQ</button>
                     <Link to="/login" className="hover:text-white transition-colors">Login Member</Link>
                 </div>
 

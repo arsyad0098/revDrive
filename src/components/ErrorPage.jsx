@@ -34,7 +34,15 @@ export default function ErrorPage({ code, title, description, image }) {
 
             {/* Single Button: Merah WeHR */}
             <button 
-                onClick={() => navigate("/")}
+                onClick={() => {
+                    const user = localStorage.getItem("user");
+                    const parsedUser = user ? JSON.parse(user) : null;
+                    if (parsedUser && parsedUser.role === "admin") {
+                        navigate("/dashboard");
+                    } else {
+                        navigate("/");
+                    }
+                }}
                 className="bg-[#FF5151] hover:bg-[#ee4545] text-white px-10 py-3 rounded-lg font-bold shadow-lg shadow-red-100 transition-all active:scale-95"
             >
                 Kembali ke Dashboard

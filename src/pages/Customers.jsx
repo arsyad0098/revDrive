@@ -21,10 +21,10 @@ export default function Customers() {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(""); // State untuk fitur pencarian
-    const [editingId, setEditingId] = useState(null);   // State penanda jika sedang mengedit
+    const [searchQuery, setSearchQuery] = useState(""); 
+    const [editingId, setEditingId] = useState(null);   
 
-    // Form State untuk Tambah & Edit User
+    // Form State untuk Tambah & Edit User (Tetap pakai phone untuk memudahkan mapping input element)
     const [formData, setFormData] = useState({
         name: "", email: "", phone: "", loyalty: "Bronze", password: "password123"
     });
@@ -44,13 +44,13 @@ export default function Customers() {
         setLoading(true);
 
         if (editingId) {
-            // Logika UPDATE data ke Supabase
+            // Logika UPDATE data ke Supabase (phone dimapping ke phone_number)
             const { error } = await supabase
                 .from("users")
                 .update({
                     name: formData.name,
                     email: formData.email,
-                    phone: formData.phone,
+                    phone_number: formData.phone, // <-- SINKRONISASI 1: phone diubah ke phone_number
                     loyalty: formData.loyalty
                 })
                 .eq("id", editingId);
@@ -64,8 +64,17 @@ export default function Customers() {
                 alert("Gagal memperbarui pelanggan: " + error.message);
             }
         } else {
-            // Logika CREATE data baru ke Supabase
-            const { error } = await supabase.from("users").insert([formData]);
+            // Logika CREATE data baru ke Supabase 
+            // <-- SINKRONISASI 2: Kita susun objeknya agar mengirim phone_number, bukan phone
+            const dataToInsert = {
+                name: formData.name,
+                email: formData.email,
+                phone_number: formData.phone, // Menyinkronkan properti phone_number database
+                loyalty: formData.loyalty,
+                password: formData.password
+            };
+
+            const { error } = await supabase.from("users").insert([dataToInsert]);
             
             if (!error) {
                 fetchCustomers();
@@ -84,7 +93,7 @@ export default function Customers() {
         setFormData({
             name: cust.name || "",
             email: cust.email || "",
-            phone: cust.phone || "",
+            phone: cust.phone_number || "", // <-- SINKRONISASI 3: Ambil dari phone_number milik Supabase
             loyalty: cust.loyalty || "Bronze",
             password: cust.password || "password123"
         });
@@ -103,7 +112,7 @@ export default function Customers() {
     const filteredCustomers = customers.filter((cust) => {
         const matchName = cust.name?.toLowerCase().includes(searchQuery.toLowerCase());
         const matchEmail = cust.email?.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchPhone = cust.phone?.includes(searchQuery);
+        const matchPhone = cust.phone_number?.includes(searchQuery); // <-- SINKRONISASI 4: Cari berdasarkan data phone_number
         return matchName || matchEmail || matchPhone;
     });
 
@@ -112,7 +121,6 @@ export default function Customers() {
     return (
         <div className="font-sans space-y-6 animate-fade-in">
             <PageHeader title="Customers" breadcrumb={["Dashboard", "Customers"]}>
-                {/* Fitur Pencarian Dinamis */}
                 <div className="hidden md:flex items-center bg-gray-50 border border-gray-100 rounded-full px-4 py-2 hover:border-red-300 transition">
                     <FiSearch className="text-gray-400 text-lg" />
                     <input 
@@ -127,7 +135,7 @@ export default function Customers() {
                 <Dialog open={isDialogOpen} onOpenChange={(open) => {
                     setIsDialogOpen(open);
                     if(!open) {
-                        setEditingId(null); // Reset mode jika dialog ditutup paksa
+                        setEditingId(null); 
                         setFormData({ name: "", email: "", phone: "", loyalty: "Bronze", password: "password123" });
                     }
                 }}>
@@ -198,10 +206,10 @@ export default function Customers() {
                     <tr key={idx} className="border-b border-gray-50 hover:bg-gray-50/70 transition group">
                         <td className="py-4 px-6 font-bold text-gray-800">{cust.name}</td>
                         <td className="py-4 px-6 text-gray-500 text-sm">{cust.email}</td>
-                        <td className="py-4 px-6 font-medium text-gray-700">{cust.phone || "-"}</td>
+                        {/* <-- SINKRONISASI 5: Tampilkan phone_number dari database */}
+                        <td className="py-4 px-6 font-medium text-gray-700">{cust.phone_number || "-"}</td>
                         <td className="py-4 px-6"><LoyaltyBadge loyalty={cust.loyalty || "Bronze"} /></td>
                         <td className="py-4 px-6 flex items-center gap-2">
-                            {/* Tambahan Tombol Edit */}
                             <button onClick={() => handleEditClick(cust)} className="text-blue-500 hover:bg-blue-50 p-2 rounded-lg transition" title="Edit User">
                                 <FiEdit2 />
                             </button>

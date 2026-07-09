@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
+import { FiArrowLeft } from "react-icons/fi"; // Mengimport icon panah kiri
 
 export default function Login() {
     const navigate = useNavigate();
@@ -20,6 +21,20 @@ export default function Login() {
         setLoading(true);
         setError("");
 
+        const adminEmail = "admin@revdrive.com";
+        const adminPassword = "admin123";
+
+        if (dataForm.email === adminEmail && dataForm.password === adminPassword) {
+            localStorage.setItem("user", JSON.stringify({
+                id: "admin",
+                email: adminEmail,
+                role: "admin",
+            }));
+            navigate("/dashboard");
+            setLoading(false);
+            return;
+        }
+
         // Cek login langsung ke tabel users Supabase
         const { data, error } = await supabase
             .from("users")
@@ -31,8 +46,10 @@ export default function Login() {
         if (error || !data) {
             setError("Login gagal, Email atau Password salah!");
         } else {
-            // Bisa simpan data user ke localStorage jika butuh
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("user", JSON.stringify({
+                ...data,
+                role: "user",
+            }));
             navigate("/");
         }
         setLoading(false);
@@ -40,6 +57,17 @@ export default function Login() {
 
     return (
         <div>
+            {/* Tombol Kembali ke Landing Page */}
+            <div className="mb-6">
+                <Link 
+                    to="/" 
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-slate-900 transition-colors group"
+                >
+                    <FiArrowLeft className="text-base group-hover:-translate-x-0.5 transition-transform" />
+                    Kembali ke Landing Page
+                </Link>
+            </div>
+
             <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-[#161E54] mb-1">Welcome Back 👋</h2>
                 <p className="text-gray-400 text-sm">Masuk untuk mengelola bengkel Anda</p>
